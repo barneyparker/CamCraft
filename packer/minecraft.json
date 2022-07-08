@@ -1,0 +1,32 @@
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "ami_name": "minecraft {{timestamp}}",
+      "instance_type": "t4g.small",
+      "ssh_username": "ec2-user",
+      "source_ami_filter": {
+        "most_recent": true,
+        "owners": ["137112412989"],
+        "filters": {
+          "virtualization-type": "hvm",
+          "name": "amzn2-ami-kernel-*-arm64-gp2"
+        }
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "./minecraft.service",
+      "destination": "/tmp/minecraft.service"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "sudo mv /tmp/minecraft.service /lib/systemd/system/minecraft.service",
+        "sudo systemctl daemon-reload"
+      ]
+    }
+  ]
+}

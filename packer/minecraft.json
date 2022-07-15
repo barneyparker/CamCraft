@@ -52,6 +52,11 @@
       "destination": "/tmp/counter"
     },
     {
+      "type": "file",
+      "source": "./cron",
+      "destination": "/tmp/cron"
+    },
+    {
       "type": "shell",
       "inline": [
         "sudo mv /tmp/minecraft.service /lib/systemd/system/minecraft.service",
@@ -66,7 +71,9 @@
         "sudo mv /tmp/server.properties /opt/minecraft/",
         "sudo mv /tmp/counter /opt/minecraft/",
         "sudo mv /tmp/shutdown.sh /opt/minecraft/",
-        "sudo chmod +x /opt/minecraft/shutdown.sh"
+        "sudo chmod +x /opt/minecraft/shutdown.sh",
+        "sudo mv /tmp/cron /etc/cron.d/minecraft",
+        "sudo chown root:root /etc/cron.d/minecraft"
       ]
     }
   ]

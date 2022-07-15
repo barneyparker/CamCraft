@@ -22,10 +22,51 @@
       "destination": "/tmp/minecraft.service"
     },
     {
+      "type": "file",
+      "source": "./eula.txt",
+      "destination": "/tmp/eula.txt"
+    },
+    {
+      "type": "file",
+      "source": "./dns.json",
+      "destination": "/tmp/dns.json"
+    },
+    {
+      "type": "file",
+      "source": "./ops.json",
+      "destination": "/tmp/ops.json"
+    },
+    {
+      "type": "file",
+      "source": "./server.properties",
+      "destination": "/tmp/server.properties"
+    },
+    {
+      "type": "file",
+      "source": "./shutdown.sh",
+      "destination": "/tmp/shutdown.sh"
+    },
+    {
+      "type": "file",
+      "source": "./counter",
+      "destination": "/tmp/counter"
+    },
+    {
       "type": "shell",
       "inline": [
         "sudo mv /tmp/minecraft.service /lib/systemd/system/minecraft.service",
-        "sudo systemctl daemon-reload"
+        "sudo systemctl daemon-reload",
+        "sudo yum install -y java-17-amazon-corretto-headless",
+        "sudo java -version",
+        "sudo wget https://launcher.mojang.com/v1/objects/e00c4052dac1d59a1188b2aa9d5a87113aaf1122/server.jar",
+        "sudo mkdir -p /opt/minecraft",
+        "sudo mv server.jar /opt/minecraft/",
+        "sudo mv /tmp/eula.txt /opt/minecraft/",
+        "sudo mv /tmp/ops.json /opt/minecraft/",
+        "sudo mv /tmp/server.properties /opt/minecraft/",
+        "sudo mv /tmp/counter /opt/minecraft/",
+        "sudo mv /tmp/shutdown.sh /opt/minecraft/",
+        "sudo chmod +x /opt/minecraft/shutdown.sh"
       ]
     }
   ]
